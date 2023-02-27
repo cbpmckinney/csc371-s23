@@ -63,8 +63,7 @@ sta V+21
 
 ldx #00
 
-line20loop:
-lda SD,x
+line20loop  lda SD,x
 sta GA,x
 inx
 cpx #64 ; copy 63 bytes
@@ -74,8 +73,7 @@ bne line20loop
 ldx #00
 ldy #63
 
-line25loop:
-lda SD,y
+line25loop  lda SD,y
 sta GB,x
 iny
 inx
@@ -87,8 +85,7 @@ bne line25loop
 ldx #00
 ldy #126
 
-line30loop:
-lda SD,y
+line30loop  lda SD,y
 sta GC, x
 iny
 inx
@@ -101,6 +98,99 @@ lda #15
 sta V+39
 lda #68
 sta V+1
+
+; Line 45
+; Uses zero page $FB for the variable P
+lda #192
+sta $FB
+
+; Line 50
+ldx #$00 ; set up loop counter
+ldy #$00
+
+; Use zero page $FC and $FD for x coordinate.  $FC is lower byte
+line50loop  stx $FC
+sty $FD
+stx V       ; store lower byte of x coordinate
+lda V+16    ; get higher order byte
+ora $FD     ; bitwise or
+sta V+16    ; stores high order byte
+
+check192    lda $FB
+cmp #192
+beq gotoline200
+jmp check193
+gotoline200 jsr line200
+jmp endloop
+check193
+cmp #192
+beq gotoline300
+jmp endloop
+
+gotoline300 
+jsr line300
+
+endloop     
+lda $FB     ;get sprite pointer
+sta $07f8   ;store sprite pointer
+inc $FB     ;increment sprite pointer 
+lda $FB     ;grab new sprite pointer
+cmp #195
+bne keepgoing
+lda #192
+sta $FB
+keepgoing   
+txa 
+clc
+adc #03
+bcc nocarry
+lda #01
+sta $FD
+nocarry
+sta $FC
+tax
+tya
+pha 
+ldy #$ff
+delayloop
+cpy #00
+beq delayend
+dey
+jmp delayloop
+delayend
+pla 
+tay 
+jmp line50loop
+
+
+
+
+
+
+line200     lda #129
+sta S+4
+lda #128
+sta S+4
+rts
+line300     lda $129
+sta S+11
+lda #128
+sta S+11
+rts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
