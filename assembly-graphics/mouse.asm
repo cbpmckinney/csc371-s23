@@ -95,6 +95,15 @@ inx
 cpx #64
 bne line30loop
 
+; Line 35
+
+lda #15
+sta V+39
+lda #68
+sta V+1
+
+
+
 
 
 
