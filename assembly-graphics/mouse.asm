@@ -74,15 +74,27 @@ bne line20loop
 ldx #00
 ldy #63
 
-line30loop:
+line25loop:
 lda SD,y
 sta GB,x
 iny
 inx
 cpx #64
-bne line30loop
+bne line25loop
 
 ; Line 30
+
+ldx #00
+ldy #126
+
+line30loop:
+lda SD,y
+sta GC, x
+iny
+inx
+cpx #64
+bne line30loop
+
 
 
 
