@@ -30,7 +30,7 @@ CHROUT = $FFD2 ;Location of KERNAL charout routine
 
 ; Line 5
 
-lda #$05
+lda #$0f
 sta S+24
 lda #220
 sta S
@@ -109,18 +109,21 @@ ldx #$00 ; set up loop counter
 ldy #$00
 
 ; Use zero page $FC and $FD for x coordinate.  $FC is lower byte
-line50loop  stx $FC
+line50loop  
+stx $FC
 sty $FD
 stx V       ; store lower byte of x coordinate
 lda V+16    ; get higher order byte
 ora $FD     ; bitwise or
 sta V+16    ; stores high order byte
 
-check192    lda $FB
+check192    
+lda $FB
 cmp #192
 beq gotoline200
 jmp check193
-gotoline200 jsr line200
+gotoline200 
+jsr line200
 jmp endloop
 check193
 cmp #192
@@ -151,12 +154,12 @@ sta $FC
 tax
 tya
 pha 
-ldy #$ff
-delayloop
-cpy #00
-beq delayend
-dey
-jmp delayloop
+;ldy #$ff
+;delayloop
+;cpy #00
+;beq delayend
+;dey
+;jmp delayloop
 delayend
 pla 
 tay 
@@ -167,12 +170,15 @@ jmp line50loop
 
 
 
-line200     lda #129
+line200     ; click
+lda #129
 sta S+4
 lda #128
 sta S+4
 rts
-line300     lda $129
+
+line300     ; clack  
+lda $129
 sta S+11
 lda #128
 sta S+11
