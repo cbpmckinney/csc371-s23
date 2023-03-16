@@ -95,7 +95,7 @@ incmousepointer
 pha 
 lda $07F8   ;loads sprite pointer
 cmp #192
-beq click
+beq click   ;this is bad, should beq to gotoclick and then have jsr
 cmp #193
 beq clack
 clc 
