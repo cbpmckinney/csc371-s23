@@ -4,6 +4,9 @@ GA = $3000 ;Location of first sprite art
 GB = $3040 ;Location of second sprite art
 GC = $3080 ;Location of third sprite art
 
+IRQLB = $0314
+IRQHB = $0315
+
 
 * = $0801
 
@@ -13,24 +16,44 @@ GC = $3080 ;Location of third sprite art
 
 * = $1000
 
+initirq
+sei ;temporarily disable all interrupts
+lda #%01111111 ;mask to turn of CIA-1 interrupts
+sta $DC0D      ;turn off CIA-1 interrupts
+and $D011      ;clear MSB of VIC-II raster register
+
+lda $DC0D      ;clear any interrupts from CIA-1
+lda $DC0D      ;clear any interrupts from CIA-2
+
+lda #0         ;select raster line to trigger interrupt
+sta $D012      ;set line for raster interrupt to trigger on
+
+lda #<irq1      ;store addresses of custom IRQ handler
+sta IRQLB
+lda #>irq1
+sta IRQHB
+
+lda #1          ;mask for VIC-II interrupts
+sta $D01A      ;turn on VIC-II raster interrupts
+cli            ;re-enable interrupts
+
 initsprite
-lda #0
-sta V 
 lda #50
+sta V 
 sta V+1
 lda #1
 sta $D015
 lda #192
 sta $07F8
 copydata
-ldx #0
+;ldx #0
 copyloop
-cpx #191
-beq finished
-lda spritegraphics,x
-sta GA,x
-inx
-jmp copyloop
+;cpx #191
+;beq finished
+;lda spritegraphics,x
+;sta GA,x
+;inx
+;jmp copyloop
 finished
 
 initsound
@@ -52,85 +75,64 @@ lda #15
 sta S+12    ;pokes+12,15
 lda #215
 sta S+13    ;pokes+13,215
+;cli         ;re-enable interrupts
 
+jsr $e544   ;clear screen
+
+mainloop
+
+jmp mainloop
+
+
+
+irq1     ;interrupt routine 1; assumes scanline 0
+pha 
+txa 
+pha 
+tya
+pha
+lda #50
+sta V+1
+lda #<irq2
+sta IRQLB
+lda #>irq2
+sta IRQHB
+lda #150
+sta $D012
+jmp endirq
+
+irq2     ;interrupt routine 2; assumes scanline 200
+pha 
+txa 
+pha 
+tya
+pha
+lda #200
+sta V+1
+lda #<irq1
+sta IRQLB
+lda #>irq1
+sta IRQHB
 lda #0
-sta $D010
-moveloop
-jsr incmousepointer
-ldx #255
-sta $D000
-clc
-adc #1
-cmp #0
-beq righthalf
-delayloop
-cpx #0
-beq moveloop
-dex
-jmp delayloop
+sta $D012
+jmp endirq
 
-righthalf
-lda #1
-sta $D010
-righthalfloop
-jsr incmousepointer
-ldx #255
-sta $D000
-clc
-adc #1
-cmp #91
-beq reset
-delayloop2
-cpx #0
-beq righthalfloop
-dex
-jmp delayloop2
-reset
-lda #0
-sta $D000
-sta $D010
-jmp moveloop
 
-incmousepointer
-pha 
-checkclick
-lda $07F8   ;loads sprite pointer
-cmp #192
-bne checkclack
-jsr click
-checkclack
-cmp #193
-bne noisefinished
-jsr clack
-noisefinished
-clc 
-adc #01
-sta $07F8
-cmp #195
-bne keeplooping
-lda #192
-sta $07F8
-keeplooping
+
+
+endirq
+lda #$ff
+sta $D019   ;acknowledge interrupt
+pla
+tay 
 pla 
-rts
-
-click
-pha 
-lda #129
-sta S+4
-lda 128
-sta S+4
+tax
 pla 
-rts
+jmp $ea31   ;return to KERNAL interrupt handler
 
-clack
-pha 
-lda #129
-sta S+11
-lda 128
-sta S+11
-pla 
-rts
+
+
+
 
 
 spritegraphics
@@ -148,4 +150,4 @@ spritegraphics
 .byte 30,0,120,63,0,252,127,129,254,127,129,254,127,189
 .byte 254,127,255,254,63,255,252,31,221,248,3,221,192,1,255,134,3,189
 .byte 204,1,199,152,1,255,48,1,255,224,1,252,0,3,254,0
-.byte 7,14,0,204,14,0,248,56,0,112,112,0,0,60,0,255,0
+.byte 7,14,0,204,14,0,248,56,0,112,112,0,0,60,0,255
