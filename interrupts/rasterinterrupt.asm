@@ -7,6 +7,22 @@ GC = $3080 ;Location of third sprite art
 IRQLB = $0314
 IRQHB = $0315
 
+pushregs .macro
+pha
+txa 
+pha 
+tya 
+pha 
+.endm
+
+pullregs .macro
+pla 
+tay 
+pla 
+tax 
+pla 
+.endm 
+
 
 * = $0801
 
@@ -28,54 +44,81 @@ lda $DC0D      ;clear any interrupts from CIA-2
 lda #0         ;select raster line to trigger interrupt
 sta $D012      ;set line for raster interrupt to trigger on
 
-lda #<irq1      ;store addresses of custom IRQ handler
+lda #<irq2      ;store addresses of custom IRQ handler
 sta IRQLB
-lda #>irq1
+lda #>irq2
 sta IRQHB
 
-lda #1          ;mask for VIC-II interrupts
+lda $D01A          ;mask for VIC-II interrupts
+ora #$01
 sta $D01A      ;turn on VIC-II raster interrupts
+
+lda $d011       ; High bit of raster line cleared, we're
+and #$7f        ; only working within single byte ranges
+sta $d011
+
 cli            ;re-enable interrupts
 
 initsprite
+lda #25
+sta V
 lda #50
-sta V 
+sta V+2
+lda #75
+sta V+4
+lda #100
+sta V+6
+lda #125
+sta V+8
+lda #150
+sta V+10
+lda #175
+sta V+12
+lda #200
+sta V+14
+lda #50
 sta V+1
-lda #1
+sta V+3
+sta V+5
+sta V+7
+sta V+9
+sta V+11
+sta V+13
+sta V+15
+lda #$ff
 sta $D015
 lda #192
 sta $07F8
-copydata
-;ldx #0
-copyloop
-;cpx #191
-;beq finished
-;lda spritegraphics,x
-;sta GA,x
-;inx
-;jmp copyloop
-finished
+sta $07F9
+sta $07FA
+sta $07FB
+sta $07FC
+sta $07FD
+sta $07FE
+sta $07FF
 
-initsound
-lda #15
-sta S+24    ;pokes+24, 15
-lda #220
-sta S       ;pokes,220
-lda #68
-sta S+1     ;pokes+1,68
-lda #15
-sta S+5     ;pokes+5,15
-lda #215
-sta S+6     ;pokes+6,215
-lda #120
-sta S+7     ;pokes+7,120
-lda #100    
-sta S+8     ;pokes+8,200
-lda #15
-sta S+12    ;pokes+12,15
-lda #215
-sta S+13    ;pokes+13,215
-;cli         ;re-enable interrupts
+lda #01
+sta $D027
+sta $D028
+sta $D029
+sta $D02A
+sta $D02B
+sta $D02C
+sta $D02D
+sta $D02E
+
+
+
+copydata
+ldx #0
+copyloop
+cpx #191
+beq finished
+lda spritegraphics,x
+sta GA,x
+inx
+jmp copyloop
+finished
 
 jsr $e544   ;clear screen
 
@@ -86,11 +129,7 @@ jmp mainloop
 
 
 irq1     ;interrupt routine 1; assumes scanline 0
-pha 
-txa 
-pha 
-tya
-pha
+#pushregs
 lda #50
 sta V+1
 lda #<irq2
@@ -102,11 +141,7 @@ sta $D012
 jmp endirq
 
 irq2     ;interrupt routine 2; assumes scanline 200
-pha 
-txa 
-pha 
-tya
-pha
+#pushregs
 lda #200
 sta V+1
 lda #<irq1
@@ -123,11 +158,7 @@ jmp endirq
 endirq
 lda #$ff
 sta $D019   ;acknowledge interrupt
-pla
-tay 
-pla 
-tax
-pla 
+#pullregs
 jmp $ea31   ;return to KERNAL interrupt handler
 
 
