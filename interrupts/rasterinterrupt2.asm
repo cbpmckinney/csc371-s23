@@ -39,22 +39,11 @@ irqinit
 
   cli             ; Enable interrupts again
 
-init             ; Little "Hello World" routine starts here
-  ldx #$00
-
-loop
-  lda text,x
-  sta $0400+40*12,x
-  inx
-  cpx #40
-  bne loop
 
 wait             ; Eternal do-nothing loop, we're done.
   jmp wait
 
-text
-.text "hello, world!"
-.byte 0
+
 
 whitebg
   lda #<bluebg    ; Push next interrupt routine address for when we're done
