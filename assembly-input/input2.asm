@@ -20,12 +20,16 @@ FACARG = $BC0C
 FADDT = $B86A   ; Add FAC and ARG -> FAC
 
 
+.include "macros.asm"
+
+
+
+
+
 
 jsr SCINIT      ; clears screen
-clc
-ldx #0
-ldy #0
-jsr PLOT        ;resets cursor to top left of screen
+
+
 
 lda #<instring1
 ldy #>instring1
@@ -34,10 +38,7 @@ jsr PRINTNULL
 jsr CHRIN 
 sta instring3
 
-clc
-ldx #1
-ldy #0
-jsr PLOT
+#setcursor 0,0
 
 lda #<instring2
 ldy #>instring2
@@ -107,3 +108,5 @@ outstr1
 .null "the sum is: "
 outstr2 
 .null "0000000000000"
+
+

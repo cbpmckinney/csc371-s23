@@ -29,8 +29,13 @@ sta inputnumber, x
 inx
 jmp main 
 
-inputnumber
-    .byte $00
+inputnumber.byte $00
 
 
-
+SETCURSOR .macro
+    clc 
+    ldx #\1
+    ldy #\2
+    jsr PLOT
+    .endm 
+    
