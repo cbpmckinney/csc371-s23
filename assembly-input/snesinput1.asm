@@ -22,8 +22,6 @@ jmp main
 
 
 
-
-
 ; to read SNES controller data, we need to read pin 6 of port b.  we need to first latch on pin 5, then
 ; pulse pin 3 (the clock) once to read the data for each button
 ; when pin 5 latches, the controller stores the status of each button at that moment
