@@ -14,6 +14,18 @@
 ;it ends up being much easier and faster to use a single byte
 ;for the status of each button. 0=off 1=on
 
+SNES_B		=$C000
+SNES_Y		=$C001
+SNES_SELECT	=$C002
+SNES_START	=$C003
+SNES_UP		=$C004
+SNES_DOWN	=$C005
+SNES_LEFT	=$C006
+SNES_RIGHT	=$C007
+SNES_A		=$C008
+SNES_X		=$C009
+SNES_BACK_L	=$C00A
+SNES_BACK_R	=$C00B
 
 *=$0801		;START ADDRESS IS $0801
 
