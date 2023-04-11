@@ -21,9 +21,10 @@ ldx #0
 initloop
 lda #$ff
 sta $3000,x 
-inx 
+inx
 cpx #63
 bne initloop
+
 lda #100
 sta $D000
 sta $D001
@@ -130,7 +131,7 @@ and JOYMASK
 sta JOYSTATUS2,x
 asl JOYMASK  
 inx 
-cpx #4 
+cpx #5 
 bne polljoystickloop
 rts 
 
