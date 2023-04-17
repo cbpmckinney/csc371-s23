@@ -18,22 +18,28 @@ gameDataSID
 
 ; Set up custom IRQ handler for timings
 initirq
-sei ;temporarily disable all interrupts
-lda #%01111111 ;mask to turn of CIA-1 interrupts
-sta $DC0D      ;turn off CIA-1 interrupts
-and $D011      ;clear MSB of VIC-II raster register
+ldy #$7f    ; $7f = %01111111
+sty $dc0d   ; Turn off CIAs Timer interrupts
+sty $dd0d   ; Turn off CIAs Timer interrupts
+lda $dc0d   ; cancel all CIA-IRQs in queue/unprocessed
+lda $dd0d   ; cancel all CIA-IRQs in queue/unprocessed
+          
+lda #$01    ; Set Interrupt Request Mask...
+sta $d01a   ; ...we want IRQ by Rasterbeam
 
-lda $DC0D      ;clear any interrupts from CIA-1
-lda $DC0D      ;clear any interrupts from CIA-2
+lda #<irq   ; point IRQ Vector to our custom irq routine
+ldx #>irq 
+sta $314    ; store in $314/$315
+stx $315   
 
-lda #250       ;select raster line to trigger interrupt
-sta $D012      ;set line for raster interrupt to trigger on
+lda #$00    ; trigger first interrupt at row zero
+sta $d012
 
-lda #<irq      ;store addresses of custom IRQ handler
-sta IRQLB
-lda #>irq
-sta IRQHB
-cli 
+lda $d011   ; Bit#0 of $d011 is basically...
+and #$7f    ; ...the 9th Bit for $d012
+sta $d011   ; we need to make sure it is set to zero 
+
+cli         ; clear interrupt disable flag       
 
 ; Call the Libsound initialization
 #LIBSOUND_INIT_A gameDataSID
@@ -47,7 +53,6 @@ irq
 #LIBSOUND_UPDATE_A gameDataSID
 
 endirq
-lda #$ff
-sta $D019   ;acknowledge interrupt
+dec $D019   ;acknowledge interrupt
 ;rti 
-jmp $ea31   ;return to KERNAL interrupt handler
+jmp $ea81   ;return to KERNAL interrupt handler
