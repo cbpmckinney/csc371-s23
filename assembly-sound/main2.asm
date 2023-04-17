@@ -25,14 +25,14 @@ lda $dc0d   ; cancel all CIA-IRQs in queue/unprocessed
 lda $dd0d   ; cancel all CIA-IRQs in queue/unprocessed
           
 lda #$01    ; Set Interrupt Request Mask...
-sta $d01a   ; ...we want IRQ by Rasterbeam
+sta $d01a   ; ...we want IRQ by raster line 
 
 lda #<irq   ; point IRQ Vector to our custom irq routine
 ldx #>irq 
 sta $314    ; store in $314/$315
 stx $315   
 
-lda #$00    ; trigger first interrupt at row zero
+lda #250    ; trigger interrupt where?  line 250, or 0, or whatever we want perhaps
 sta $d012
 
 lda $d011   ; Bit#0 of $d011 is basically...
@@ -51,8 +51,11 @@ jmp mainloop
 
 irq
 #LIBSOUND_UPDATE_A gameDataSID
+; We can put other stuff to go here during the interrupt, such as checking input
+; Moving sprites, etc.
+
 
 endirq
 dec $D019   ;acknowledge interrupt
-;rti 
+;rti
 jmp $ea81   ;return to KERNAL interrupt handler
