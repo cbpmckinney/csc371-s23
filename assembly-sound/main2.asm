@@ -3,6 +3,9 @@
 .byte $08, $0d, $0a, $00, $9e, $28, $38
 .byte $31, $39, $32, $29, $00, $00, $00
 
+IRQLB = $0314
+IRQHB = $0315
+
 * = $1000
 gameDataSID
 
@@ -12,26 +15,39 @@ gameDataSID
 
 * = $2000
 
-; Call the Libsound initialization
-#LIBSOUND_INIT_A gameDataSID
+
 ; Set up custom IRQ handler for timings
 initirq
+sei ;temporarily disable all interrupts
+lda #%01111111 ;mask to turn of CIA-1 interrupts
+sta $DC0D      ;turn off CIA-1 interrupts
+and $D011      ;clear MSB of VIC-II raster register
 
+lda $DC0D      ;clear any interrupts from CIA-1
+lda $DC0D      ;clear any interrupts from CIA-2
+
+lda #250       ;select raster line to trigger interrupt
+sta $D012      ;set line for raster interrupt to trigger on
+
+lda #<irq      ;store addresses of custom IRQ handler
+sta IRQLB
+lda #>irq
+sta IRQHB
+cli 
+
+; Call the Libsound initialization
+#LIBSOUND_INIT_A gameDataSID
 
 
 mainloop
-
-    #LIBSOUND_UPDATE_A gameDataSID
-    jsr delay
-
 jmp mainloop
 
-delay
-ldx #255
-delayloop
-cpx #0
-beq delayexit
-dex 
-jmp delayloop
-delayexit
-rts
+
+irq
+#LIBSOUND_UPDATE_A gameDataSID
+
+endirq
+lda #$ff
+sta $D019   ;acknowledge interrupt
+;rti 
+jmp $ea31   ;return to KERNAL interrupt handler
