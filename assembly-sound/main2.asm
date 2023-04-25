@@ -50,6 +50,14 @@ jmp mainloop
 
 
 irq
+
+pha 
+txa 
+pha 
+tya 
+pha 
+
+
 #LIBSOUND_UPDATE_A gameDataSID
 ; We can put other stuff to go here during the interrupt, such as checking input
 ; Moving sprites, etc.
@@ -58,4 +66,10 @@ irq
 endirq
 dec $D019   ;acknowledge interrupt
 ;rti
+pla 
+tay 
+pla 
+tax 
+pla 
+
 jmp $ea81   ;return to KERNAL interrupt handler
