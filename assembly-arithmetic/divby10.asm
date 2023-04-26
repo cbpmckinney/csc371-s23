@@ -57,7 +57,7 @@ sta string
 rts
 
 num1
-.byte $69 ; 105 in hex
+.byte $09; 105 in hex
 
 num2
 .byte $0, $0, $0

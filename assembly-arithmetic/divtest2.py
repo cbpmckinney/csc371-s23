@@ -4,8 +4,8 @@
 for i in range(255):
     q = (i >> 1) + (i >> 2)
     q = q + (q >> 4)
-    #q = q + (q >> 8)
-    #q = q + (q >> 16)
+    q = q + (q >> 8)
+    q = q + (q >> 16)
     q = q >> 3
     r = i - q * 10
     if not q == i//10:
