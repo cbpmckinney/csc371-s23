@@ -6,9 +6,9 @@
 IRQLB = $0314
 IRQHB = $0315
 
-* = $1000
+* = $1006
 
-.binary "nyancat_jsid.sid", $7c
+.binary "nyancat_jsid.sid", $7e
 
 ;.include "libSound2.asm"
 
