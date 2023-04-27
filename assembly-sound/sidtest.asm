@@ -8,7 +8,7 @@ IRQHB = $0315
 
 * = $1000
 
-.binary "nyan-ntsc2.sid", $7c
+.binary "nyancat_jsid.sid", $7e
 
 ;.include "libSound2.asm"
 
@@ -42,7 +42,9 @@ cli         ; clear interrupt disable flag
 
 ;Manual sound init
     lda #0
-    jsr $1106   ; initialize music
+    tax 
+    tay 
+    jsr $1103   ; initialize music
 
 
 mainloop
@@ -53,14 +55,22 @@ irq
 ; We can put other stuff to go here during the interrupt, such as checking input
 ; Moving sprites, etc.
 
-jsr $1000
-
+inc soundNTSCTimer
+lda soundNTSCTimer
+cmp #6 ;Music delay
+beq resetNTSCTimer  
+jsr $1006
+jmp end
+resetNTSCTimer
+    lda #0
+    sta soundNTSCTimer
+end
 
 endirq
-;dec $D019   ;acknowledge interrupt
-rti
+dec $D019   ;acknowledge interrupt
+;rti
 
-;jmp $ea81   ;return to KERNAL interrupt handler
+jmp $ea81   ;return to KERNAL interrupt handler
 
 
 

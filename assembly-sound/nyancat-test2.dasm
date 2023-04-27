@@ -1,0 +1,2111 @@
+; da65 V2.19 - N/A
+; Created:    2023-04-26 21:43:46
+; Input file: nyancat-test2.prg
+; Page:       1
+
+
+        .setcpu "6502"
+
+L001F           := $001F
+L0023           := $0023
+L0100           := $0100
+L0101           := $0101
+L0110           := $0110
+L0114           := $0114
+L0143           := $0143
+L01A3           := $01A3
+L0285           := $0285
+L030F           := $030F
+L0393           := $0393
+L04D1           := $04D1
+L0673           := $0673
+L0801           := $0801
+L10B3           := $10B3
+L14BA           := $14BA
+L155E           := $155E
+L20B9           := $20B9
+L25C6           := $25C6
+L2780           := $2780
+L27FA           := $27FA
+L2903           := $2903
+L350F           := $350F
+L35CE           := $35CE
+L4153           := $4153
+L47FF           := $47FF
+L4F95           := $4F95
+L5808           := $5808
+L595B           := $595B
+L6384           := $6384
+L7237           := $7237
+L76DE           := $76DE
+L7E83           := $7E83
+L833D           := $833D
+L8540           := $8540
+L87EF           := $87EF
+L9314           := $9314
+LA9E8           := $A9E8
+LAA6C           := $AA6C
+LAB39           := $AB39
+LADD6           := $ADD6
+LBF78           := $BF78
+LDF81           := $DF81
+LE8E9           := $E8E9
+LF2EA           := $F2EA
+        ora     ($08,x)
+        .byte   $0B
+        php
+        sty     $21
+        .byte   $9E
+        .byte   $32
+        bmi     LF32B
+        and     $A000,y
+        brk
+        sei
+        inc     $01
+        tsx
+LF2FE:  lda     $1403,x
+        sta     a:$FC,x
+        dex
+        bne     LF2FE
+        jmp     L14BA
+
+        .byte   $37
+        .byte   $22
+        .byte   $B2
+        .byte   $FB
+        lda     ($F8),y
+        .byte   $7F
+        cpy     $31
+        ldx     $FF
+        .byte   $63
+        lsr     $D2,x
+        .byte   $4F
+        .byte   $C3
+        ora     $46
+        beq     LF2EA
+        sty     $0FBD
+        .byte   $D3
+        ora     ($4A),y
+        adc     #$EC
+        dec     $81
+        rol     a
+        sbc     ($BD),y
+LF32B:  asl     a
+        ora     ($F0,x)
+        ora     $7E,x
+        sei
+        adc     #$48
+        cpy     $FC
+        .byte   $6B
+        tya
+        sta     $6518,y
+        .byte   $E2
+        sbc     $905D,x
+        .byte   $02
+        .byte   $CB
+        .byte   $A3
+        .byte   $74
+        cmp     ($A5,x)
+        .byte   $F7
+        beq     LF36F
+        inc     $D84B,x
+        sta     $D3
+        inc     a:$A0,x
+        sbc     ($84),y
+        eor     $03BC
+        .byte   $CB
+        ora     ($B1,x)
+        sbc     $19EE,x
+        sbc     LFE8C,y
+        inc     $5E
+        lda     $F2,x
+        txa
+        .byte   $33
+        dec     $A0
+        .byte   $8D
+        .byte   $91
+LF367:  .byte   $FA
+        .byte   $5B
+        iny
+        bne     LF367
+        nop
+        .byte   $8C
+        .byte   $8D
+LF36F:  sed
+        .byte   $23
+        .byte   $FA
+        cpy     a:$4C
+        bit     $78
+        .byte   $7A
+        cpy     #$7D
+        cld
+        ora     $A6AD,x
+        .byte   $02
+        and     #$7C
+        cmp     #$A5
+        lsr     $48,x
+        sbc     $DC,x
+        jsr     L6384
+        ldx     #$2E
+        lda     $7F3A,x
+        .byte   $F4
+LF390:  .byte   $FF
+        .byte   $CF
+        dex
+        cpx     #$58
+        sbc     ($8D,x)
+LF397:  sta     $DD,x
+        eor     $D9,x
+        cld
+        .byte   $13
+        cmp     $DA13,y
+        .byte   $12
+        lsr     $DB,x
+        inx
+        bne     LF397
+        .byte   $CF
+        ora     $DBA9,x
+        .byte   $0F
+        stx     $A42D
+        .byte   $FA
+        eor     $0E
+        lda     $7769,x
+        ora     #$9D
+        .byte   $5C
+        cpx     #$B9
+        .byte   $FC
+        ldy     #$C8
+        ldx     #$7D
+        asl     $E001
+        .byte   $6B
+        beq     LF426
+        bcs     LF3CB
+        .byte   $D2
+        ora     $CF2C
+        .byte   $07
+LF3CB:  dey
+        adc     #$7E
+        cld
+        stx     $D940
+        iny
+        .byte   $EB
+        tya
+        .byte   $B3
+        cpx     $DB
+        .byte   $0C
+        sta     $B730,y
+        .byte   $DA
+        iny
+        cpy     #$EF
+        bne     LF390
+        .byte   $34
+LF3E3:  lda     $C53C,y
+        bit     $28
+        tax
+        lda     #$24
+        sta     $0329
+        ldy     #$BF
+        .byte   $A5
+LF3F1:  lda     $BCFF,y
+        sta     $C6F6,y
+        dey
+        bne     LF3F1
+        jmp     L0114
+
+        sbc     $5092,x
+        bmi     LF40B
+        .byte   $6B
+        .byte   $37
+        adc     $08
+        ora     ($86),y
+        .byte   $0F
+        lsr     $01,x
+LF40B:  ora     ($A7,x)
+        sty     $00
+        .byte   $22
+        .byte   $02
+        lda     #$E9
+        .byte   $DC
+        ldy     $0B09,x
+        rol     $FB,x
+        asl     a
+        sta     $014F,y
+        ora     $DC3A
+        adc     $06C5
+        ldx     #$18
+        .byte   $B5
+LF426:  .byte   $04
+        adc     $3EFC,x
+        sed
+        dec     $86
+        bmi     LF3E3
+        .byte   $93
+        .byte   $0C
+        .byte   $33
+        .byte   $E3
+        stx     $2B
+        .byte   $3F
+        .byte   $03
+        bne     LF46E
+        .byte   $54
+        beq     LF454
+        sec
+        .byte   $47
+        sbc     $2B
+        bcc     LF44E
+        adc     #$FE
+        .byte   $C7
+        .byte   $5C
+        and     #$2C
+        .byte   $23
+        .byte   $F4
+        inc     $03
+        .byte   $4C
+        .byte   $5C
+LF44E:  .byte   $EF
+        .byte   $E2
+        lda     LFD19,y
+        .byte   $72
+LF454:  .byte   $2F
+        inc     $EBF0,x
+        jsr     L0285
+        cmp     #$FF
+        bne     LF472
+LF45F:  inc     $C82E,x
+        bvc     LF45F
+        asl     $5F
+LF466:  .byte   $5C
+        ldx     $10
+        .byte   $5C
+        ldy     $C0
+        .byte   $7F
+        rts
+
+LF46E:  .byte   $FF
+        brk
+        .byte   $1F
+        .byte   $25
+LF472:  cmp     $322C,y
+        sbc     ($96,x)
+        pha
+        stx     $1DAC
+        dex
+LF47C:  and     $85,x
+        asl     $0F4C,x
+        .byte   $9E
+        bcc     LF466
+        .byte   $A9
+LF485:  plp
+        eor     #$F4
+        .byte   $07
+        pha
+        tax
+        ror     $C4,x
+        php
+        and     $E8
+        lsr     a
+        asl     a
+        sbc     $D0,x
+        .byte   $FA
+        plp
+        .byte   $EF
+LF497:  bcs     LF485
+        clv
+        stx     $BC48
+        .byte   $30
+LF49E:  .byte   $FF
+        ldy     $C8,x
+        sta     $68DF,y
+        jmp     L10B3
+
+        .byte   $9B
+        rol     $A6,x
+        txa
+        and     #$6C
+        .byte   $C3
+        ldy     $BA
+        ldx     $C4
+        rol     a
+        ldy     $8492
+        rol     $86
+        .byte   $F7
+        .byte   $27
+        ldx     #$06
+        lda     LFEC7,x
+        sta     $5F,x
+        cmp     $F8,x
+        ora     $60A9,y
+        sta     $28
+        .byte   $FC
+        .byte   $07
+        bcs     LF47C
+        lda     L04D1
+        sta     $8D18
+        ora     $DC
+        cpx     $29
+        .byte   $62
+        lsr     $2A
+        jsr     L001F
+        sta     $2B
+        .byte   $3F
+        .byte   $CB
+        bne     LF541
+        inc     $D1
+        rol     $95
+        stx     $55,y
+LF4E8:  lda     $27
+        sta     $5F97
+        rol     $1C,x
+        lda     #$00
+        sta     $02,x
+        .byte   $DF
+        dex
+        .byte   $FB
+        sbc     $20
+        tax
+        rts
+
+        ldy     #$0C
+        ldx     #$6F
+        ora     ($4C),y
+        .byte   $B3
+        bpl     LF497
+        .byte   $42
+        adc     LFF17
+        sbc     $0504,y
+        .byte   $13
+        .byte   $12
+        .byte   $02
+        asl     $FF,x
+        and     $070B,x
+        .byte   $33
+        php
+        .byte   $0C
+        asl     $DF0F
+        .byte   $2F
+        asl     a
+        .byte   $14
+        .byte   $F3
+        ora     $EE,x
+        .byte   $17
+        clc
+        ora     ($E0),y
+        .byte   $1F
+        sta     $592E,y
+        lda     #$02
+        .byte   $3F
+        and     $2C,x
+        nop
+        .byte   $52
+        eor     $EE,x
+LF52F:  .byte   $80
+        .byte   $9B
+        ror     $2586,x
+        .byte   $FF
+        .byte   $34
+        beq     LF587
+        cli
+        rts
+
+        pha
+        asl     $0FBA,x
+        .byte   $07
+        .byte   $FD
+        .byte   $F5
+LF541:  cpx     $20B7
+        cmp     $DE3B,x
+        ldy     #$15
+        tay
+        eor     ($66),y
+        .byte   $3A
+        tay
+        .byte   $D4
+        .byte   $1C
+LF550:  sei
+        nop
+        dec     $1501
+        rti
+
+        .byte   $1F
+        adc     $089B
+        bcs     LF4E8
+        stx     $B6
+        ora     $B8D8,y
+        and     $2EA2
+        rti
+
+        ldx     #$52
+        .byte   $02
+        inc     $3D07
+        lda     #$C1
+        .byte   $C3
+        .byte   $27
+        ora     $1E8A
+        .byte   $1C
+        .byte   $FB
+        sty     $0E
+        .byte   $13
+        .byte   $9F
+        rti
+
+        .byte   $DA
+        ora     $88,x
+        inc     $3452
+        dey
+        sec
+        .byte   $DC
+        and     ($61,x)
+        bit     L001F
+        .byte   $57
+LF587:  bcs     LF58A
+LF589:  sec
+LF58A:  pha
+        .byte   $CF
+        lsr     $1400
+        .byte   $3B
+        rti
+
+        asl     $1B2F
+        .byte   $64
+        lda     $73
+        ldy     #$CA
+        ora     $8B
+        .byte   $04
+        brk
+        .byte   $3B
+        ora     $ADC5,y
+        .byte   $23
+        cpx     $0F62
+        .byte   $E2
+        .byte   $D2
+        .byte   $D3
+        .byte   $34
+        ora     ($2D,x)
+        .byte   $9F
+        tax
+        .byte   $0F
+        cmp     $62E4,y
+        adc     $CF
+        bpl     LF613
+        .byte   $AF
+        lda     $E6
+        cmp     $D557,x
+        bmi     LF550
+        .byte   $57
+        cpy     $6E
+        tay
+        pha
+LF5C2:  .byte   $7C
+        .byte   $2F
+        sty     $5827
+        cmp     $83
+        .byte   $02
+        lda     $8F
+        eor     $E886
+        sta     $B3
+        .byte   $23
+        ldy     $08A7
+        .byte   $AF
+        and     $7CA0
+        and     $DB
+        .byte   $34
+        inx
+        .byte   $87
+        .byte   $EF
+        .byte   $93
+        and     $DD
+        cmp     $83A5,x
+        adc     $08
+        .byte   $3F
+        rol     $A13D
+        .byte   $D3
+        eor     $9F
+        .byte   $23
+        php
+        .byte   $62
+        .byte   $93
+        .byte   $2F
+        cpy     $9F
+        tsx
+        .byte   $AF
+        .byte   $04
+        sei
+        .byte   $5F
+        .byte   $1A
+LF5FB:  bne     LF678
+        .byte   $34
+        and     $B3,x
+        .byte   $FF
+        asl     LFD06,x
+        adc     ($07,x)
+        .byte   $37
+        asl     $F2
+        .byte   $1F
+        clv
+        inc     $77
+        bvs     LF647
+        adc     $8E
+        .byte   $53
+        sei
+LF613:  .byte   $67
+        lsr     $E6C6
+        .byte   $0F
+        ldx     $D815,y
+        asl     a
+        cmp     $47C1
+        cpy     $F3
+        lsr     a
+        .byte   $7F
+        rol     $070A,x
+        .byte   $14
+        .byte   $37
+        ror     $0F4C,x
+LF62B:  dec     $F0
+        bit     LF938
+        ldy     $7E
+        .byte   $17
+        .byte   $3B
+        .byte   $83
+        .byte   $04
+        and     #$93
+        .byte   $83
+        adc     $61B0
+        adc     ($1A),y
+        .byte   $93
+        .byte   $FC
+        .byte   $02
+        lda     $47
+        rts
+
+        .byte   $7A
+        .byte   $97
+        lsr     a
+LF647:  cmp     $798C
+        eor     ($50,x)
+        .byte   $DA
+        .byte   $89
+        jmp     (L35CE)
+
+        cpx     $7B
+        adc     ($0A,x)
+        .byte   $77
+        .byte   $3F
+        .byte   $1F
+        cpy     $3A
+        adc     $60
+        ror     a
+        .byte   $53
+        ror     $2CBF,x
+        txs
+        bvc     LF62B
+        .byte   $8F
+        bvc     LF69C
+        bcc     LF6DE
+        eor     $75C2
+        cpx     #$4F
+LF66E:  rts
+
+        eor     $F0
+        .byte   $03
+        .byte   $44
+        .byte   $64
+        .byte   $0B
+        rol     $CC08,x
+LF678:  bit     $1EF0
+        cld
+        eor     $06E0,y
+        clv
+        eor     $9EE3,y
+        ldy     #$1E
+        lda     $057F,y
+        .byte   $F3
+        .byte   $7C
+        asl     a
+        .byte   $8F
+        brk
+        adc     #$F1
+        .byte   $C3
+        bvs     LF694
+        cld
+        .byte   $19
+LF694:  ldy     #$6F
+        .byte   $DC
+        lsr     a
+        sei
+LF699:  .byte   $07
+        sec
+        .byte   $19
+LF69C:  bcc     LF71D
+        .byte   $74
+        txs
+        tax
+        bvc     LF66E
+        .byte   $44
+        .byte   $9E
+        brk
+        sbc     #$68
+        ror     $376D,x
+        asl     $0731,x
+        .byte   $44
+        .byte   $6B
+        .byte   $8F
+        ora     ($AC,x)
+        sta     ($0B,x)
+        cpx     #$1E
+        .byte   $63
+        inc     $E0
+        php
+        .byte   $5F
+        jsr     L0393
+        sbc     ($90,x)
+        tsx
+        and     #$DF
+        adc     $A107
+        cpx     #$01
+        .byte   $62
+        .byte   $87
+        .byte   $80
+        and     $0E37,y
+        jmp     L76DE
+
+        bpl     LF705
+        ror     $0F44,x
+        .byte   $03
+        cpy     #$24
+        .byte   $93
+        inx
+        sbc     ($94,x)
+LF6DE:  .byte   $0C
+        inc     $20,x
+        sei
+        php
+        cpy     $F040
+        .byte   $27
+        ora     $B01A,x
+        .byte   $3C
+        .byte   $03
+        .byte   $44
+        jsr     LBF78
+        jsr     L7237
+        lda     ($2F),y
+        .byte   $DA
+        .byte   $80
+        .byte   $43
+        rti
+
+        eor     $9331
+        .byte   $44
+        sei
+        eor     $03,x
+        eor     ($F0),y
+        .byte   $DF
+        bvc     LF72C
+LF705:  .byte   $93
+        .byte   $1A
+        sec
+        eor     $00,x
+        ora     $04,x
+        .byte   $27
+        .byte   $83
+        stx     $E236
+        php
+        .byte   $7A
+        stx     $0B,y
+        rti
+
+        .byte   $33
+        .byte   $7C
+        php
+        .byte   $D4
+        ora     $77,x
+        .byte   $05
+LF71D:  txa
+        .byte   $DA
+        eor     $E99A
+        dex
+        adc     $0800,y
+        asl     a
+        lsr     a
+        bpl     LF769
+        .byte   $03
+        sei
+LF72C:  .byte   $F4
+        .byte   $3A
+        .byte   $47
+        .byte   $7F
+        .byte   $9C
+        ldx     $7C
+        ora     ($57),y
+        jsr     LDF81
+        .byte   $FC
+        .byte   $7B
+        adc     $F5
+        .byte   $FB
+        .byte   $07
+        dey
+        inc     $1D,x
+        .byte   $72
+        rol     a
+        rts
+
+        adc     $9A8C,y
+        clc
+        sta     ($7E,x)
+        .byte   $89
+        lsr     $9366
+        .byte   $1B
+        cmp     ($93,x)
+        ldx     $E9
+        plp
+        .byte   $04
+        cpx     $7135
+        eor     #$E0
+        and     #$6D
+        sbc     $A881
+        .byte   $03
+        .byte   $B6
+LF761:  .byte   $E7
+        .byte   $82
+        sty     $2B80
+        ror     LF7E4,x
+LF769:  .byte   $5A
+        .byte   $0F
+        cld
+        lda     ($B0),y
+        .byte   $F4
+        .byte   $9B
+        .byte   $F4
+        dec     $00,x
+        .byte   $72
+        .byte   $1B
+        .byte   $54
+        .byte   $27
+        .byte   $67
+        asl     $F7
+        .byte   $DB
+        .byte   $89
+        jsr     L7E83
+        sbc     ($C8,x)
+        clv
+        .byte   $B7
+        rts
+
+        ora     #$78
+        .byte   $1B
+        .byte   $34
+        .byte   $0F
+        tya
+        .byte   $6B
+        clc
+        .byte   $DF
+        .byte   $63
+        ldx     #$21
+        .byte   $9B
+        .byte   $E7
+        ldy     $AB,x
+        .byte   $03
+        jmp     (L9314)
+
+        ldy     $73,x
+        .byte   $64
+        ora     $7E,x
+        .byte   $EF
+        .byte   $0F
+        cmp     ($40),y
+        .byte   $FC
+        and     $43
+        .byte   $34
+        .byte   $FB
+        and     ($A0,x)
+        cmp     $58F3,y
+        .byte   $37
+        asl     a
+        ldx     #$EE
+        eor     $9318
+        ldx     #$0F
+        rol     a
+        .byte   $02
+        sed
+        .byte   $73
+        dey
+        cmp     ($15),y
+        ora     $92D4
+        eor     $1F61
+        .byte   $12
+        .byte   $F2
+        .byte   $5C
+        php
+        .byte   $1B
+        ror     $A683,x
+        .byte   $9E
+        .byte   $4F
+        .byte   $9E
+        .byte   $0C
+        .byte   $82
+LF7CE:  ldy     #$2B
+        cpx     $ED
+        .byte   $1B
+        sbc     LFD04,x
+        .byte   $B3
+        .byte   $02
+        php
+        .byte   $D7
+        pla
+        .byte   $03
+        .byte   $8B
+        .byte   $44
+        .byte   $1F
+        .byte   $4F
+        and     #$A2
+        .byte   $FF
+        .byte   $41
+LF7E4:  .byte   $1C
+        asl     $81
+        nop
+        .byte   $89
+        .byte   $EF
+        bit     $7E
+        inx
+LF7ED:  and     ($2C,x)
+        ora     ($05,x)
+        ora     #$FF
+        rts
+
+        txs
+        eor     $4013
+        .byte   $80
+        .byte   $04
+        jsr     L47FF
+        .byte   $62
+        .byte   $67
+        .byte   $07
+        .byte   $43
+        and     ($9F),y
+        php
+        .byte   $FF
+        .byte   $89
+        bmi     LF7ED
+        .byte   $23
+        .byte   $1A
+        eor     $04B1
+        ldy     #$16
+        adc     ($61,x)
+        ror     a
+        cmp     ($F6,x)
+        brk
+        .byte   $D3
+        cpx     $26F8
+        cpx     $6BB9
+        cmp     ($C4,x)
+        .byte   $07
+LF81F:  lda     ($CF,x)
+        ora     $F3
+        ora     $78DA
+        jsr     LE8E9
+        bvs     LF81F
+        .byte   $D7
+        .byte   $9B
+        sed
+        ora     #$78
+        ora     ($83),y
+        .byte   $C2
+        asl     $9C
+        asl     $61B3,x
+        sta     ($94),y
+        .byte   $52
+        and     $15
+        cpy     $5632
+        ldx     LF761
+        .byte   $23
+        .byte   $D4
+        bmi     LF7CE
+        sty     $FF
+        .byte   $3A
+        dey
+        .byte   $D4
+        lda     #$43
+        .byte   $3F
+        tax
+        .byte   $52
+        sbc     ($4A),y
+        .byte   $1A
+        dey
+        eor     $7555
+        .byte   $02
+        .byte   $9B
+        .byte   $C2
+        .byte   $5B
+        and     $6A08,x
+        .byte   $3C
+        .byte   $97
+        and     ($79,x)
+        .byte   $9B
+        cmp     ($84,x)
+        .byte   $07
+        sty     $9136
+        .byte   $6F
+        .byte   $E5
+LF86C:  ora     ($F9,x)
+        .byte   $CB
+        .byte   $72
+        brk
+        sbc     LF5FB,x
+        cld
+        brk
+        .byte   $2F
+        asl     $71
+        .byte   $03
+        .byte   $C3
+LF87B:  .byte   $9E
+        .byte   $EF
+        .byte   $5B
+        .byte   $E2
+        .byte   $22
+        inc     $E4,x
+        inc     $5142
+        sed
+        .byte   $0C
+        bit     $84
+        .byte   $04
+        sty     $4896
+        tay
+        cpy     $8C
+        .byte   $B7
+        jmp     L155E
+
+        bmi     LF86C
+        .byte   $2B
+LF897:  sty     $E8,x
+        ora     $73
+        .byte   $04
+        .byte   $97
+        bmi     LF8A4
+        cpx     #$B4
+        ora     $DC30
+LF8A4:  asl     $4200
+        .byte   $DB
+        .byte   $64
+        adc     ($06,x)
+        asl     $70,x
+        clc
+        cli
+        ror     $8F48,x
+        cpy     $3C
+        sta     $B49E
+        tya
+        bcs     LF8EF
+        bmi     LF87B
+        .byte   $D4
+        .byte   $CD
+        .byte   $C2
+LF8BF:  sbc     $C0,x
+        .byte   $DF
+        .byte   $DA
+        sbc     $A0,x
+        .byte   $FC
+        sbc     ($C1),y
+        jsr     L2903
+        tya
+        .byte   $1B
+        .byte   $B7
+        eor     $B112
+        inx
+        cpx     #$21
+        ora     $680D
+        eor     ($0A,x)
+        ldx     $50,y
+        .byte   $17
+        .byte   $9B
+        lsr     $8C85,x
+        bvs     LF90E
+        lsr     $F1,x
+        .byte   $0C
+        .byte   $FB
+        ldy     #$B7
+        .byte   $2B
+        .byte   $22
+        cpx     #$00
+        .byte   $07
+        .byte   $FF
+        .byte   $3E
+LF8EF:  .byte   $BF
+        asl     $F6,x
+        eor     ($6A,x)
+        tsx
+        brk
+        ror     $56,x
+        ldx     $21
+        ora     ($F2),y
+        ora     ($F0,x)
+        stx     $83,y
+        eor     $74
+        asl     $35E0
+        cli
+        sbc     ($3B),y
+        ror     $BD
+        cpx     $7801
+        .byte   $A2
+LF90E:  bcs     LF897
+        sbc     LFD72,x
+        ora     ($7F,x)
+        .byte   $FB
+        bcc     LF8BF
+        .byte   $1A
+        tya
+        clv
+        adc     ($B0),y
+        dec     $D2
+        .byte   $C2
+        ror     $17,x
+        cpy     $0A
+        ror     $D5
+        and     ($9C,x)
+        cpx     $33
+        inc     $F1
+        sbc     $0FF2,x
+        .byte   $4B
+        ora     ($0D,x)
+        .byte   $4C
+LF933:  .byte   $0F
+        and     $10,x
+        .byte   $FC
+        .byte   $53
+LF938:  sbc     #$E3
+        adc     ($88,x)
+        .byte   $80
+        .byte   $E7
+        pha
+        stx     $BA,y
+        rti
+
+        .byte   $03
+        eor     ($60,x)
+        inc     $7254,x
+        sbc     ($4A),y
+        cmp     #$B5
+        .byte   $10
+LF94D:  .byte   $FF
+        .byte   $12
+        nop
+        jsr     LADD6
+        .byte   $44
+        inc     $3AF5,x
+        dey
+        .byte   $FF
+        lsr     $5C,x
+        .byte   $41
+LF95C:  jmp     $C455
+
+        inc     $3A95,x
+LF962:  bpl     LF95C
+        bcs     LF962
+        .byte   $17
+        .byte   $FF
+        bit     $4A8F
+        adc     #$08
+        .byte   $23
+        .byte   $33
+        .byte   $52
+        ora     $EDFB,x
+        .byte   $5A
+        sta     ($AA),y
+        sta     ($05),y
+        dex
+        .byte   $DA
+        sed
+        inc     $4D,x
+        lda     $ABF6,y
+        sbc     LFAA2,x
+        .byte   $D2
+        .byte   $F4
+        .byte   $FF
+        .byte   $5C
+        .byte   $F7
+        brk
+        inc     $8BBF,x
+        bvs     LF9AD
+        .byte   $77
+        cpy     #$6E
+        .byte   $3C
+        tay
+        eor     $5350,x
+        eor     #$44
+        rol     $3F,x
+        .byte   $34
+        asl     $AB,x
+        rol     $1731
+        adc     $0F52,y
+        dec     $54
+        inx
+        bvs     LF9F0
+        inc     $37
+        ora     $73E4
+LF9AD:  .byte   $13
+        and     ($5D,x)
+        .byte   $3F
+        rol     a
+        adc     $0F08
+        brk
+        rti
+
+        adc     $34C0,x
+        ora     ($64,x)
+        .byte   $DB
+        ora     ($F1),y
+        .byte   $D7
+        ora     $B871,y
+        sed
+        cmp     ($01,x)
+        cpx     $F1
+        inc     $41
+        ora     ($15,x)
+        inc     $A408,x
+        .byte   $7C
+        .byte   $F7
+        .byte   $23
+        .byte   $3A
+        asl     $1A18,x
+        .byte   $02
+        .byte   $97
+        sta     $DC9A
+        .byte   $14
+        iny
+        adc     #$75
+        ora     $3110
+        sta     $52D2,x
+        sta     ($11,x)
+        ldx     #$9B
+        cpy     #$F7
+        .byte   $3C
+        .byte   $3F
+        rol     $BC47,x
+LF9F0:  .byte   $DC
+        jmp     L030F
+
+        ora     ($04,x)
+        sbc     $2DDC,x
+        asl     $44,x
+        sbc     #$42
+        .byte   $CB
+        txs
+        eor     #$01
+LFA01:  asl     LFCF5
+        cpx     $41
+        lda     $3C36,x
+        ldx     $50,y
+        ora     ($24,x)
+        ora     $C5CE,y
+        bit     $31
+        .byte   $0C
+        bmi     LFA28
+        .byte   $8B
+        rts
+
+        .byte   $53
+        .byte   $12
+        ror     $72,x
+        and     ($C3),y
+        asl     $46F8,x
+        ora     $DD
+        .byte   $07
+        .byte   $13
+        .byte   $9F
+        bit     $544E
+LFA28:  .byte   $53
+        .byte   $43
+        bit     $517D
+        and     $38,x
+        bmi     LFAA1
+        eor     $4300
+        .byte   $0C
+        .byte   $0F
+        .byte   $03
+        .byte   $0B
+        inc     $3A18,x
+        rti
+
+        .byte   $92
+        brk
+        ora     $31,x
+        .byte   $2F
+        cpx     $0C
+        eor     $03
+        cmp     $324A,x
+        .byte   $2B
+        .byte   $C3
+        .byte   $1A
+        lsr     $1805
+        .byte   $14
+        sei
+        inc     $00
+        rts
+
+        .byte   $D4
+        and     $5086
+        .byte   $9E
+        asl     $09,x
+        .byte   $D3
+        .byte   $52
+        .byte   $F2
+        rol     a
+        .byte   $0F
+        ldx     $07
+        .byte   $74
+        .byte   $34
+        .byte   $6F
+        .byte   $42
+        and     ($0C,x)
+        ldx     $9A0B,y
+        rol     $03,x
+        .byte   $EB
+        cpx     #$05
+        asl     $48B9
+        .byte   $1F
+        stx     $46
+        sta     ($C4),y
+        jmp     L4153
+
+        .byte   $E7
+        .byte   $C7
+        .byte   $04
+        lda     $4C,x
+        .byte   $4F
+        .byte   $43
+        .byte   $A7
+        .byte   $4B
+        .byte   $9E
+        php
+        .byte   $0F
+        .byte   $23
+        .byte   $17
+        sty     $1301
+        .byte   $AF
+        and     $5512
+        ora     #$0D
+LFA91:  .byte   $FB
+        ora     $84
+        .byte   $54
+        eor     $FD,x
+        lsr     LF52F
+        .byte   $4F
+        bvc     LFAD8
+        ora     $1453
+        .byte   $0F
+LFAA1:  .byte   $10
+LFAA2:  .byte   $3C
+        .byte   $1B
+        sbc     $54,x
+        eor     $43D3,y
+        adc     $42
+        eor     $442B
+LFAAE:  eor     $4C
+        ora     $52FF,x
+        ldy     $5B13
+        .byte   $5C
+        php
+        inc     $00
+        .byte   $03
+        beq     LFABD
+LFABD:  .byte   $04
+        asl     $00
+        asl     $57,x
+        .byte   $02
+        tax
+        sty     $05,x
+        .byte   $57
+        jsr     L5808
+        .byte   $14
+        .byte   $5C
+        .byte   $3A
+        lda     ($2F,x)
+        bpl     LFB4B
+        ora     #$04
+        rol     $34,x
+        sbc     $DD13,y
+LFAD8:  ora     $03,x
+        eor     $53,x
+        .byte   $0F
+        .byte   $12
+        .byte   $07
+        inc     $0E2E
+        ora     $97
+        .byte   $14
+        jsr     LF589
+        bit     $B2
+        and     $EB
+        asl     $11
+        .byte   $4B
+        .byte   $4C
+LFAF0:  bpl     $FAF3
+        .byte   $AB
+        eor     #$05
+        dey
+        .byte   $37
+        .byte   $5C
+        .byte   $1B
+        ora     ($03),y
+        php
+        php
+        .byte   $A7
+        ora     ($03,x)
+        clv
+        .byte   $4F
+        sta     $25C2,y
+        dey
+        adc     L030F,x
+        jmp     L20B9
+
+        .byte   $97
+        sbc     $B02A,x
+        .byte   $30
+LFB11:  .byte   $9C
+        asl     $79
+        asl     $45,x
+        ldx     $48
+        .byte   $64
+        pla
+        sbc     ($05,x)
+        .byte   $9C
+        ora     #$8F
+        eor     #$4C
+        beq     LFB2A
+        bne     LFBA3
+        ldy     $0C,x
+        .byte   $72
+        .byte   $5B
+        .byte   $02
+LFB2A:  .byte   $07
+        ora     #$EE
+        and     $3A29
+        eor     ($F1,x)
+LFB32:  sbc     $683E
+        nop
+        jsr     L595B
+        .byte   $03
+        .byte   $EB
+        lsr     $A8
+        lda     ($AA),y
+        rti
+
+        adc     $12,x
+        asl     $70,x
+        .byte   $47
+        .byte   $1B
+        pla
+        sta     $783E
+        cld
+LFB4B:  .byte   $D3
+        .byte   $57
+        tay
+        lda     $29
+        .byte   $03
+        .byte   $EB
+        bne     LFB56
+        dec     $09,x
+LFB56:  .byte   $34
+        .byte   $CB
+        bit     $0FE4
+        asl     $6C,x
+        .byte   $3F
+        cmp     ($3E,x)
+        txa
+        jsr     LAA6C
+        adc     #$90
+        .byte   $0F
+        sbc     #$3A
+        eor     $4F64,x
+        .byte   $8E
+        .byte   $52
+LFB6E:  cli
+        ldx     #$30
+        sty     $9A5D
+        bcc     LFB84
+        .byte   $E9
+LFB77:  lsr     $C9E8
+        asl     a
+        .byte   $97
+        bcs     LFB77
+        pha
+        txa
+        inc     $11,x
+        pla
+        .byte   $09
+LFB84:  .byte   $BB
+        bmi     LFB32
+        .byte   $52
+        and     #$4B
+LFB8A:  ora     ($00,x)
+        sbc     $C820
+        cpy     #$03
+        .byte   $6F
+        bcc     LFB8A
+        ldx     #$E9
+        bmi     LFBB1
+        .byte   $03
+        .byte   $74
+        adc     $1DBA,y
+        .byte   $3C
+        .byte   $32
+        cpx     $1B
+        lsr     a
+        .byte   $2F
+LFBA3:  asl     $AFCE,x
+        cmp     $11AE,x
+        .byte   $1A
+        bmi     LFBB5
+        lda     $4BB8,x
+        .byte   $9D
+        .byte   $66
+LFBB1:  lda     ($7E),y
+        .byte   $A3
+        .byte   $E6
+LFBB5:  ldy     #$83
+        .byte   $0C
+        .byte   $DA
+        stx     $3212
+        lsr     $4A15
+        asl     $33
+        lda     ($8E,x)
+        rti
+
+        bne     LFC40
+LFBC6:  lda     #$95
+        ldx     #$42
+        .byte   $FC
+        inc     $8E,x
+        and     $05
+        .byte   $DC
+        ldy     $DEF6
+        cpy     $3C6D
+        .byte   $D4
+        sty     $4898
+        .byte   $B7
+        beq     LFBC6
+        .byte   $1B
+        beq     LFB6E
+        inc     $31,x
+        inx
+        jsr     L87EF
+        .byte   $27
+        cmp     ($1C),y
+        stx     $A1B9
+        lsr     $1D8D,x
+        .byte   $C3
+        iny
+        asl     $64C0,x
+        adc     $A0,x
+        .byte   $1F
+        ora     $AA7F,x
+        sec
+        cmp     $CE20
+        rol     a
+        inx
+        dey
+        sei
+        lsr     $773D
+        .byte   $0F
+        .byte   $07
+        .byte   $4B
+        php
+        .byte   $C3
+        bne     LFC73
+        sta     ($29,x)
+        jmp     L01A3
+
+        ror     $02E5
+        ora     $B1
+        .byte   $57
+        .byte   $9F
+        .byte   $14
+        cmp     $932F
+        lda     $EA,x
+        cpy     $57
+        lsr     $D258
+        .byte   $DA
+        pla
+        ldx     $EC6A
+        ldy     #$00
+        sbc     #$FB
+        jsr     L0673
+        cmp     $2451,y
+        .byte   $0F
+        lda     $2413
+        .byte   $FA
+        sty     $8375
+        lsr     LFFA2
+        txs
+        cli
+        .byte   $7A
+LFC40:  .byte   $5D
+        tax
+LFC42:  php
+        sei
+        .byte   $D2
+        rol     $D7
+        .byte   $03
+        .byte   $27
+        .byte   $34
+        cpx     $64
+        and     #$42
+        ldy     #$E8
+        ldx     #$FE
+        stx     $54FC
+        lsr     a
+        bcs     LFC65
+        jsr     L833D
+        lda     #$37
+        sta     $01
+        .byte   $9E
+        and     ($80),y
+        jmp     (LFFFC)
+
+LFC65:  .byte   $9F
+        ldy     $8D,x
+        and     #$10
+        beq     LFCB3
+        ora     #$41
+        .byte   $EB
+        sta     $7213,y
+        plp
+LFC73:  .byte   $13
+        jsr     L2780
+        jmp     L25C6
+
+        .byte   $FC
+        .byte   $03
+        .byte   $8E
+        .byte   $1A
+LFC7E:  .byte   $9F
+        ror     $44
+        ora     $4B55,y
+        .byte   $7F
+        inc     $22
+        eor     ($49),y
+        bpl     LFC7E
+        ora     $0A33
+        .byte   $64
+        eor     $0E
+        .byte   $27
+        eor     ($DC),y
+        .byte   $3A
+        .byte   $0F
+        .byte   $DD
+        .byte   $C2
+LFC98:  bmi     $FC9E
+        .byte   $6B
+        .byte   $0B
+        .byte   $13
+        txs
+        .byte   $12
+        txa
+        adc     $A2,x
+        .byte   $17
+        bne     LFC42
+        brk
+        lsr     $39
+        lda     ($D1),y
+        .byte   $D3
+        lda     #$0F
+        lsr     $82
+        sta     $D418
+        .byte   $3C
+LFCB3:  .byte   $B7
+        asl     $CC,x
+        cmp     $1088,y
+        sed
+        ldx     $1EE0
+        sec
+        sbc     #$C3
+        cmp     #$20
+        ror     $A203,x
+        .byte   $3B
+        stx     $AD5C
+        .byte   $12
+        tya
+        .byte   $C3
+        cpx     $08A9
+        ldy     $EC16,x
+        rol     $AE
+        pla
+        bmi     LFCE5
+        .byte   $33
+        .byte   $5C
+        rti
+
+        and     ($AD,x)
+        adc     $18,x
+        cmp     $03
+        cmp     #$28
+        .byte   $E7
+        bcc     LFC98
+LFCE5:  sei
+        .byte   $BB
+        .byte   $3B
+        sbc     ($E5),y
+        beq     LFD03
+        ora     ($DC,x)
+        and     $2719,x
+        .byte   $1F
+        .byte   $07
+        cmp     $2B,x
+LFCF5:  .byte   $EF
+        .byte   $CE
+        php
+LFCF8:  rts
+
+        stx     LFAF0
+        txa
+        .byte   $EB
+        .byte   $6B
+        .byte   $87
+        cpy     $AD
+        .byte   $64
+LFD03:  .byte   $49
+LFD04:  .byte   $9F
+        .byte   $CE
+LFD06:  .byte   $17
+        .byte   $7F
+        ora     ($39),y
+        rts
+
+        lsr     a
+        .byte   $54
+        .byte   $64
+        bcs     LFD3C
+LFD10:  cmp     #$10
+        .byte   $44
+        .byte   $72
+        stx     $64
+        bcs     LFD04
+        .byte   $26
+LFD19:  .byte   $2B
+        .byte   $44
+        .byte   $FF
+        lda     ($FE,x)
+        .byte   $54
+        rol     $7F
+        .byte   $D2
+        .byte   $17
+        .byte   $92
+        .byte   $22
+        ora     $2A28,y
+        dey
+        adc     ($80,x)
+        .byte   $EF
+        .byte   $DF
+        .byte   $7F
+        .byte   $4F
+        ldy     LFB11
+        .byte   $F7
+        .byte   $13
+        sbc     $D580,x
+        .byte   $07
+        ora     ($08,x)
+        .byte   $07
+        .byte   $E4
+LFD3C:  .byte   $DB
+        .byte   $5B
+        rol     a
+        jsr     L04D1
+        eor     $345D
+        .byte   $22
+        lsr     a
+        jsr     L8540
+        sty     $80
+        .byte   $02
+        bpl     LFCF8
+        .byte   $FF
+        sta     $ADFE
+        brk
+        .byte   $DC
+        .byte   $27
+        tax
+        eor     $2DE2
+        .byte   $62
+        stx     $7A18
+        sbc     #$E8
+        cpx     $5487
+        bpl     LFD80
+        and     ($F0),y
+        dec     $0DC5
+        lsr     a
+        .byte   $14
+        lda     $E4
+        ldx     $3147
+        txa
+LFD72:  .byte   $67
+        .byte   $92
+        eor     $0CD4,y
+        rol     $63
+        lsr     a
+        .byte   $B7
+        jmp     L4F95
+
+        rts
+
+        .byte   $AE
+LFD80:  rol     $30FA
+        adc     ($E8,x)
+        txa
+        adc     $D924,y
+        .byte   $EB
+        adc     $4F1A,y
+LFD8D:  .byte   $04
+        ldy     $57EF,x
+        lda     $6939,y
+        brk
+        cmp     $4FE6,x
+        cpx     #$03
+        lda     #$F3
+        bmi     LFDCA
+        ldx     #$01
+        sta     $21E9,y
+        inc     $84E1,x
+        asl     $5219,x
+        ora     $D7,x
+        ldx     $27ED,y
+        .byte   $AC
+LFDAF:  .byte   $1C
+        .byte   $5F
+        tya
+        ora     $6ACB
+        beq     LFDE2
+        ror     a
+        sbc     ($11,x)
+        .byte   $D3
+        cpy     $8AC9
+        clc
+        eor     $DD1D
+        sbc     $644A
+        bne     LFDD7
+        .byte   $D2
+        .byte   $1A
+        .byte   $8D
+LFDCA:  .byte   $1B
+        .byte   $EB
+        eor     #$52
+        cmp     #$98
+        bcs     LFE0A
+        rol     $CA0F
+        bne     LFDAF
+LFDD7:  lsr     LFA01
+        lda     $A2C0,y
+        rol     $3A,x
+        .byte   $3C
+        .byte   $32
+        .byte   $05
+LFDE2:  asl     $48
+        inc     $3216,x
+        jsr     L27FA
+        pla
+        rol     $09AB,x
+        bmi     LFD8D
+        .byte   $03
+        .byte   $22
+        inx
+        .byte   $3F
+        rts
+
+        lda     $241E
+        tax
+        sbc     $18F8,y
+        adc     #$90
+        .byte   $EF
+        .byte   $D2
+        .byte   $5A
+        lda     #$00
+        rol     a
+        sta     LFD10
+        .byte   $E7
+        .byte   $DB
+        .byte   $6C
+LFE0A:  .byte   $9C
+        and     $A028,y
+        clc
+LFE0F:  .byte   $CF
+        sta     $22FD,y
+        cpx     #$88
+        bne     LFE0F
+        txa
+        .byte   $9E
+        lsr     a
+        ora     #$AA
+        sbc     $8663
+        .byte   $02
+        lda     #$0E
+        sta     $D9EF,y
+        iny
+        .byte   $7F
+        .byte   $13
+        .byte   $D0
+LFE29:  .byte   $1B
+        .byte   $F3
+        .byte   $E2
+        .byte   $80
+        cpy     #$66
+        beq     LFE29
+        .byte   $FB
+        .byte   $FC
+        inc     $E6AC,x
+        .byte   $4F
+        txa
+        ora     $35
+        .byte   $04
+        ldx     $62
+        ldy     $951F
+        ror     $AC
+        txs
+        .byte   $23
+        .byte   $E9
+LFE45:  .byte   $73
+        inc     $4B,x
+        lda     #$A2
+        asl     $57BD,x
+        asl     a
+        sta     $7A55,x
+        .byte   $F6
+LFE52:  .byte   $42
+        sbc     $8D
+        .byte   $54
+        rol     $8C
+        bit     $97D8
+        rts
+
+        inc     $ADE2
+        dey
+        .byte   $63
+        lsr     a
+        and     #$0F
+        tay
+        lda     $2889,y
+        .byte   $7F
+        ldx     #$25
+        sta     $F0C1,x
+        pha
+        .byte   $FA
+        dec     $ED64
+        ldx     $D6
+        cli
+        .byte   $14
+        .byte   $07
+        asl     a
+        .byte   $04
+        .byte   $02
+        ora     #$7C
+        .byte   $12
+        ldy     #$00
+        beq     LFED1
+        .byte   $2F
+        ldx     #$26
+        lda     $9DED,x
+        eor     #$D3
+        .byte   $DB
+        dex
+LFE8C:  inc     $F7
+        ldy     #$CE
+        stx     $3C10
+        .byte   $93
+        lda     #$06
+        .byte   $CF
+        .byte   $1F
+        bit     $7B
+        .byte   $44
+        lda     $29ED
+        sbc     $07,x
+        tax
+        inc     $EE
+        plp
+        sta     $DBF3
+        ldx     #$00
+LFEA9:  lda     $7D49,x
+        sta     $2348,x
+        .byte   $2F
+        sec
+        .byte   $27
+        bcc     LFEA9
+        ldx     $D56F
+        cpx     #$CD
+LFEB9:  .byte   $FF
+        ldx     $E809,y
+        inc     $F2
+        sty     $8162
+        beq     LFE52
+        .byte   $6F
+        .byte   $23
+        .byte   $7A
+LFEC7:  .byte   $D2
+        tax
+        bne     LFEB9
+        lda     $28D3
+        rts
+
+        brk
+        .byte   $F0
+LFED1:  ora     $4E
+        eor     ($01),y
+        ora     $7C03
+        pha
+        eor     ($EA,x)
+        ror     $AA
+        ldx     #$C4
+        .byte   $44
+        rti
+
+        .byte   $8B
+        asl     $AAAE,x
+        tax
+        bit     $C4C2
+        rti
+
+        ldy     $6E
+        lsr     $A2
+        dey
+        pha
+        .byte   $80
+        bpl     LFEF9
+        jsr     LA9E8
+        brk
+        sta     $FC
+LFEF9:  sta     $FB
+        cpx     #$01
+        bcc     LFF20
+        lda     $FD
+LFF01:  lsr     a
+        bne     LFF15
+LFF04:  lda     $011C
+        bne     LFF0C
+        dec     $011D
+LFF0C:  dec     $011C
+        lda     $1404
+        bcc     LFF2F
+        ror     a
+LFF15:  rol     $FC
+LFF17:  rol     $FB
+        dex
+        bne     LFF01
+        sta     $FD
+        lda     $FC
+LFF20:  rts
+
+LFF21:  dec     $01
+        cli
+        jmp     L0801
+
+LFF27:  dex
+        dec     $FF
+        dec     $AF
+LFF2C:  dey
+        lda     ($AE),y
+LFF2F:  sta     ($FE),y
+LFF31:  tya
+        bne     LFF2C
+        txa
+        bne     LFF27
+        jsr     L0100
+        beq     LFF46
+        lda     $FE
+        bne     LFF42
+        dec     $FF
+LFF42:  dec     $FE
+        bcc     LFF04
+LFF46:  iny
+        jsr     L0100
+        beq     LFF46
+        cpy     #$11
+        bcs     LFF21
+        ldx     $0333,y
+        jsr     L0101
+        adc     $0367,y
+        sta     $A7
+        lda     $FB
+        adc     $039B,y
+        pha
+        bne     LFF69
+        ldy     $A7
+        cpy     #$04
+        bcc     LFF6B
+LFF69:  ldy     #$03
+LFF6B:  ldx     $01AC,y
+        jsr     L0101
+        adc     $01AF,y
+        tay
+        sec
+        lda     $FE
+        sbc     $A7
+        sta     $FE
+        bcs     LFF80
+        dec     $FF
+LFF80:  ldx     $0334,y
+        jsr     L0101
+        adc     $0368,y
+        bcc     LFF8E
+        inc     $FB
+        clc
+LFF8E:  adc     $FE
+LFF90:  sta     $AE
+        lda     $FB
+        adc     $039C,y
+        adc     $FF
+        sta     $AF
+        ldy     $A7
+        pla
+        tax
+        bcc     LFF31
+        .byte   $02
+LFFA2:  .byte   $04
+        .byte   $04
+        bmi     LFFC6
+        .byte   $10
+LFFA7:  inx
+        tya
+        and     #$0F
+        beq     LFFC0
+        txa
+        lsr     a
+        ldx     $FC
+LFFB1:  rol     a
+        rol     $FB
+        dex
+        bpl     LFFB1
+        adc     $0367,y
+        tax
+        lda     $FB
+        adc     $039B,y
+LFFC0:  sta     $039C,y
+        txa
+        .byte   $99
+LFFC5:  pla
+LFFC6:  .byte   $03
+        ldx     #$04
+        jsr     L0101
+        sta     $0334,y
+        iny
+        cpy     #$34
+        bne     LFFA7
+        ldy     #$1E
+LFFD6:  lda     $14F4,y
+        sta     $07FE,y
+        dey
+        bne     LFFD6
+        .byte   $4C
+LFFE0:  .byte   $43
+        ora     ($80,x)
+        brk
+        php
+        jmp     LAB39
+
+        php
+        sbc     $5C3C,x
+        ldy     $17
+        .byte   $72
+        sbc     #$02
+        beq     L0023
+        ldx     $20
+        bpl     LFFC5
+        inc     $49,x
+        inx
+        bcs     LFFE0
+LFFFC:  .byte   $04
+        .byte   $03
+        .byte   $0D
+        .byte   $9C
