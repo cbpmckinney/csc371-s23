@@ -8,7 +8,7 @@ IRQHB = $0315
 
 * = $1000
 
-.binary "nyan1.sid", $7c
+.binary "nyan-ntsc2.sid", $7c
 
 ;.include "libSound2.asm"
 
@@ -41,59 +41,26 @@ sta $d011   ; we need to make sure it is set to zero
 cli         ; clear interrupt disable flag       
 
 ;Manual sound init
-
-    lda $02A6
-    sta soundIsPAL  ; Get system type
-    lda #0          
-    tax 
-    tay 
+    lda #0
     jsr $1106   ; initialize music
 
 
 mainloop
 jmp mainloop
 
-
 irq
-
-pha 
-txa 
-pha 
-tya 
-pha 
-
-
 
 ; We can put other stuff to go here during the interrupt, such as checking input
 ; Moving sprites, etc.
 
-    lda soundIsPAL
-    cmp #1 ;Is system PAL?
-    beq pal ;Yes.
-    ;System is NTSC
-    inc soundNTSCTimer
-    lda soundNTSCTimer
-    cmp #6 ;Music delay
-    beq resetNTSCTimer  
-pal
-    jsr $1000
-    jmp end
-resetNTSCTimer
-    lda #0
-    sta soundNTSCTimer
-end
+jsr $1000
 
 
 endirq
-dec $D019   ;acknowledge interrupt
-;rti
-pla 
-tay 
-pla 
-tax 
-pla 
+;dec $D019   ;acknowledge interrupt
+rti
 
-jmp $ea81   ;return to KERNAL interrupt handler
+;jmp $ea81   ;return to KERNAL interrupt handler
 
 
 
